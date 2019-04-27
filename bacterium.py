@@ -41,7 +41,7 @@ class BacteriumOne(BaseBacterium):
         time = 5
         cash = 40
         price = 30
-        bodyname = '___CHANGE___NAME___'
+        bodyname = 'bacteria1.png'
         super().__init__(xp, score, time, cash, price, bodyname)
 
 
@@ -52,7 +52,7 @@ class BacteruimTwo(BaseBacterium):
         time = 10
         cash = 80
         price = 60
-        bodyname = '___CHANGE___NAME___'
+        bodyname = 'bacteria2.png'
         super().__init__(xp, score, time, cash, price, bodyname)
 
 
@@ -63,7 +63,7 @@ class BacteruimThree(BaseBacterium):
         time = 15
         cash = 120
         price = 90
-        bodyname = '___CHANGE___NAME___'
+        bodyname = 'bacteria3.png'
         super().__init__(xp, score, time, cash, price, bodyname)
 
 
@@ -74,7 +74,7 @@ class BacteruimFour(BaseBacterium):
         time = 20
         cash = 160
         price = 120
-        bodyname = '___CHANGE___NAME___'
+        bodyname = 'bacteria4.png'
         super().__init__(xp, score, time, cash, price, bodyname)
 
 
@@ -85,11 +85,11 @@ class BacteruimFive(BaseBacterium):
         time = 25
         cash = 200
         price = 150
-        bodyname = '___CHANGE___NAME___'
+        bodyname = 'bacteria5.png'
         super().__init__(xp, score, time, cash, price, bodyname)
 
 
 class ImprovedBacterium(BaseBacterium):
     def __init__(self, *params):
-        bodyname = '___CHANGE___NAME___'
+        bodyname = 'bacteria7.png'
         super().__init__(*params, bodyname)

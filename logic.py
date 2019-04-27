@@ -1,4 +1,3 @@
-import pygame, index
 from bacterium import BacteriumOne, BacteruimTwo, BacteruimThree, BacteruimFour, BacteruimFive, ImprovedBacterium
 from antibiotic import AntibioticStart, AntibioticMedium, AntibioticMaster
 

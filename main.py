@@ -1,11 +1,13 @@
 import pygame as pg
+from logic import Game
 
 successes, failures = pg.init()
 print("{0} successes and {1} failures".format(successes, failures))
 
+new_mode = Game()
 time = "00:00"
-score = 1
-money = 100
+score = new_mode.score
+money = new_mode.money
 
 screen = pg.display.set_mode((960, 640), 0, 32)
 clock = pg.time.Clock()
