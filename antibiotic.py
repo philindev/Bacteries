@@ -2,7 +2,7 @@ import pygame, random
 
 
 def set_center():
-    return random.randint(0, 775), random.randint(0, 515)
+    return random.randint(0, 895), random.randint(0, 525)
 
 
 class BaseAntibiotic:
@@ -11,7 +11,6 @@ class BaseAntibiotic:
         self.bonus = coofic
         self.center = set_center()
         self.radius = 30
-        self.count_to_upgrade = 0
         self.lesion_area = epicenter
         self.sub_available = True
 
@@ -19,7 +18,7 @@ class BaseAntibiotic:
 class AntibioticStart(BaseAntibiotic):
     def __init__(self):
         damage = 70
-        bonus = 2
+        bonus = 1
         epicenter = 100
         super().__init__(damage, bonus, epicenter)
 
@@ -27,7 +26,7 @@ class AntibioticStart(BaseAntibiotic):
 class AntibioticMedium(BaseAntibiotic):
     def __init__(self):
         damage = 100
-        bonus = 3
+        bonus = 2
         epicenter = 150
         super().__init__(damage, bonus, epicenter)
 
@@ -35,8 +34,6 @@ class AntibioticMedium(BaseAntibiotic):
 class AntibioticMaster(BaseAntibiotic):
     def __init__(self):
         damage = 130
-        bonus = 4
+        bonus = 3
         epicenter = 200
         super().__init__(damage, bonus, epicenter)
-
-

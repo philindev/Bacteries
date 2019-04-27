@@ -1,8 +1,11 @@
 import pygame, random
 
 
+CHANGE_COORDS = (-3, -2, -1, 0, 1, 2, 3)
+
+
 def set_coords():
-    return random.randint(0, 775), random.randint(0, 515)
+    return random.randint(0, 895), random.randint(0, 525)
 
 
 class BaseBacterium:
@@ -17,13 +20,18 @@ class BaseBacterium:
         self.x, self.y = set_coords()
 
     def __add__(self, other):
-        return ImprovedBacterium(self.XP + other.XP,
-                                 self.score_bonus + self.score_bonus,
-                                 self.cash_bonus + other.cash_bonus, 0)
+        if not other.sub_available:
+            return ImprovedBacterium(self.XP + other.XP,
+                                     self.score_bonus + self.score_bonus,
+                                     self.cash_bonus + other.cash_bonus, 0)
 
     def __sub__(self, other):
         if other.sub_available:
             self.XP -= other.damage
+
+    def move(self):
+        self.y += random.choice(CHANGE_COORDS)
+        self.x += random.choice(CHANGE_COORDS)
 
 
 class BacteriumOne(BaseBacterium):
