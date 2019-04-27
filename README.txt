@@ -1,0 +1,1 @@
+open the "INDEX.PY" file only
