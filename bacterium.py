@@ -1,0 +1,87 @@
+import pygame, random
+
+
+def set_coords():
+    return random.randint(0, 775), random.randint(0, 515)
+
+
+class BaseBacterium:
+    def __init__(self, xp, score, time, cash, price, bodyname):
+        self.XP = xp
+        self.score_bonus = score
+        self.cash_bonus = cash
+        self.price = price
+        self.regeneration_time = time
+        self.body = pygame.image.load(bodyname)
+        self.sub_available = False
+        self.x, self.y = set_coords()
+
+    def __add__(self, other):
+        return ImprovedBacterium(self.XP + other.XP,
+                                 self.score_bonus + self.score_bonus,
+                                 self.cash_bonus + other.cash_bonus, 0)
+
+    def __sub__(self, other):
+        if other.sub_available:
+            self.XP -= other.damage
+
+
+class BacteriumOne(BaseBacterium):
+    def __init__(self):
+        xp = 100
+        score = 10
+        time = 5
+        cash = 40
+        price = 30
+        bodyname = '___CHANGE___NAME___'
+        super().__init__(xp, score, time, cash, price, bodyname)
+
+
+class BacteruimTwo(BaseBacterium):
+    def __init__(self):
+        xp = 150
+        score = 20
+        time = 10
+        cash = 80
+        price = 60
+        bodyname = '___CHANGE___NAME___'
+        super().__init__(xp, score, time, cash, price, bodyname)
+
+
+class BacteruimThree(BaseBacterium):
+    def __init__(self):
+        xp = 200
+        score = 30
+        time = 15
+        cash = 120
+        price = 90
+        bodyname = '___CHANGE___NAME___'
+        super().__init__(xp, score, time, cash, price, bodyname)
+
+
+class BacteruimFour(BaseBacterium):
+    def __init__(self):
+        xp = 250
+        score = 40
+        time = 20
+        cash = 160
+        price = 120
+        bodyname = '___CHANGE___NAME___'
+        super().__init__(xp, score, time, cash, price, bodyname)
+
+
+class BacteruimFive(BaseBacterium):
+    def __init__(self):
+        xp = 300
+        score = 50
+        time = 25
+        cash = 200
+        price = 150
+        bodyname = '___CHANGE___NAME___'
+        super().__init__(xp, score, time, cash, price, bodyname)
+
+
+class ImprovedBacterium(BaseBacterium):
+    def __init__(self, *params):
+        bodyname = '___CHANGE___NAME___'
+        super().__init__(*params, bodyname)
