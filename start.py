@@ -1,4 +1,4 @@
-import pygame as pg
+import pygame as pg, os
 successes, failures = pg.init()
 print("{0} successes and {1} failures".format(successes, failures))
 
@@ -47,7 +47,7 @@ while running:
         if (410 <= mousex <= 540
                 and 295 <= mousey <= 335
                 and mouse_buttons):
-            exit(0)
+            running = False
 
     screen.blit(background, background_rect)
     screen.blit(label, (430, 290))
@@ -63,4 +63,4 @@ while running:
         color)
 
     pg.display.update()
-
+os.startfile("main.py")
