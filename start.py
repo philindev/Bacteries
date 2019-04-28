@@ -1,4 +1,6 @@
-import pygame as pg, os
+import pygame as pg
+from nt import startfile
+
 successes, failures = pg.init()
 print("{0} successes and {1} failures".format(successes, failures))
 
@@ -63,4 +65,4 @@ while running:
         color)
 
     pg.display.update()
-os.startfile("main.py")
+startfile("main.py")
