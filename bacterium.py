@@ -29,6 +29,9 @@ class BaseBacterium:
         if other.sub_available:
             self.XP -= other.damage
 
+    def __eq__(self, other):
+        return True
+
     def move(self):
         self.y += random.choice(CHANGE_COORDS)
         self.x += random.choice(CHANGE_COORDS)

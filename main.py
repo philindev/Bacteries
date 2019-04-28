@@ -1,19 +1,16 @@
 import pygame as pg
+from time import clock as cl
 from logic import Game
 from bacterium import BacteriumOne, BacteruimTwo, BacteruimThree, BacteruimFive, BacteruimFour, ImprovedBacterium
 
 successes, failures = pg.init()
 print("{0} successes and {1} failures".format(successes, failures))
 
+join = cl()
 new_mode = Game()
-time = "00:00"
+time = new_mode.time
 score = new_mode.score
 money = new_mode.money
-
-
-def buy(type):
-    new_mode.buy(type)
-    print(0)
 
 
 baterials_icons = {
@@ -58,13 +55,13 @@ text = [
     font_renderer.render(f"{score}", 1, (33, 46, 40))
 
 ]
-font_renderer = pg.font.Font('./PTS76F.ttf', 20)
+fon_renderer = pg.font.Font('./PTS76F.ttf', 20)
 names = [
-    font_renderer.render("XP: {}, $: {}".format(BacteriumOne().XP, BacteriumOne().price), 1, (30, 50, 40)),
-    font_renderer.render("XP: {}, $: {}".format(BacteruimTwo().XP, BacteruimTwo().price), 1, (30, 50, 40)),
-    font_renderer.render("XP: {}, $: {}".format(BacteruimThree().XP, BacteruimThree().price), 1, (30, 50, 40)),
-    font_renderer.render("XP: {}, $: {}".format(BacteruimFour().XP, BacteruimFour().price), 1, (30, 50, 40)),
-    font_renderer.render("XP: {}, $: {}".format(BacteruimFive().XP, BacteruimFive().price), 1, (30, 50, 40)),
+    fon_renderer.render("XP: {}, $: {}".format(BacteriumOne().XP, BacteriumOne().price), 1, (30, 50, 40)),
+    fon_renderer.render("XP: {}, $: {}".format(BacteruimTwo().XP, BacteruimTwo().price), 1, (30, 50, 40)),
+    fon_renderer.render("XP: {}, $: {}".format(BacteruimThree().XP, BacteruimThree().price), 1, (30, 50, 40)),
+    fon_renderer.render("XP: {}, $: {}".format(BacteruimFour().XP, BacteruimFour().price), 1, (30, 50, 40)),
+    fon_renderer.render("XP: {}, $: {}".format(BacteruimFive().XP, BacteruimFive().price), 1, (30, 50, 40)),
 ]
 
 flaticons = {
@@ -73,9 +70,21 @@ flaticons = {
     'score': pg.transform.scale(pg.image.load("./img/icon/scoreboard.png"), (50, 50)),
 }
 
+rendering = {
+    1: [],
+    2: [],
+    3: [],
+    4: [],
+    5: []
+}
+
+
+def generate(type, num):
+    if type:
+        rendering[num].append([baterials_icons[num], (type.x, type.y)])
+
 
 def render(x, y, click):
-
     background.fill((163, 204, 181))
     screen.blit(background, background_rect)
     header.fill(colors["BLACK"])
@@ -99,15 +108,18 @@ def render(x, y, click):
             screen.blit(names[i - 1], (startx + 40, starty))
             starty += 30
         if 765 <= x <= 960 and 210 <= y <= 240 and click:
-            buy(BacteriumOne)
+            generate(new_mode.buy(BacteriumOne), 1)
         elif 765 <= x <= 960 and 240 <= y <= 270 and click:
-            buy(BacteruimTwo)
+            generate(new_mode.buy(BacteruimTwo), 2)
         elif 765 <= x <= 960 and 270 <= y <= 300 and click:
-            buy(BacteruimThree)
+            generate(new_mode.buy(BacteruimThree), 3)
         elif 765 <= x <= 960 and 300 <= y <= 330 and click:
-            buy(BacteruimFour)
+            generate(new_mode.buy(BacteruimFour), 4)
         elif 765 <= x <= 960 and 330 <= y <= 360 and click:
-            buy(BacteruimFive)
+            generate(new_mode.buy(BacteruimFive), 5)
+    for i in range(1, 6):
+        for _ in rendering[i]:
+            screen.blit(_[0], _[1])
 
     screen.blit(icon_settings, (10, 7))
     pg.display.update()
@@ -117,6 +129,16 @@ view = False
 click = False
 
 while running:
+    money = new_mode.money
+    time = int(cl() - join)
+    new_mode.time = time
+    score = new_mode.score
+    text = [
+        font_renderer.render(f"{money}", 1, (33, 46, 40)),
+        font_renderer.render(f"{time}", 1, (33, 46, 40)),
+        font_renderer.render(f"{score}", 1, (33, 46, 40))
+
+    ]
 
     for event in pg.event.get():
         if event.type == pg.QUIT:
@@ -126,6 +148,10 @@ while running:
 
     mousex, mousey = pg.mouse.get_pos()
     mouse_tap = pg.mouse.get_pressed()
+    if new_mode.time == 5:
+        rendering = new_mode.wave(rendering)
+        join = cl()
+        new_mode.alive(rendering)
     if view and (765 <= mousex <= 960 and 150 <= mousey <= 465):
         coord = (0, 0, 195, 315)
     elif (930 <= mousex <= 960
@@ -134,6 +160,12 @@ while running:
     else:
         coord = (175, 0, 20, 315)
         view = False
-
-    render(mousex, mousey, click)
+    if new_mode.start and not new_mode.finish:
+        screen.blit(background, background_rect)
+        texty = pg.font.Font('./PTS76F.ttf', 50)
+        texty = texty.render("YOU LOSt", 1, (33, 46, 40))
+        screen.blit(texty, (400, 400))
+    else:
+        render(mousex, mousey, click)
     click = False
+
