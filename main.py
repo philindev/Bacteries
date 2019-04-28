@@ -13,6 +13,7 @@ money = new_mode.money
 
 def buy(type):
     new_mode.buy(type)
+    print(0)
 
 
 baterials_icons = {
@@ -57,6 +58,15 @@ text = [
     font_renderer.render(f"{score}", 1, (33, 46, 40))
 
 ]
+font_renderer = pg.font.Font('./PTS76F.ttf', 20)
+names = [
+    font_renderer.render("XP: {}, $: {}".format(BacteriumOne().XP, BacteriumOne().price), 1, (30, 50, 40)),
+    font_renderer.render("XP: {}, $: {}".format(BacteruimTwo().XP, BacteruimTwo().price), 1, (30, 50, 40)),
+    font_renderer.render("XP: {}, $: {}".format(BacteruimThree().XP, BacteruimThree().price), 1, (30, 50, 40)),
+    font_renderer.render("XP: {}, $: {}".format(BacteruimFour().XP, BacteruimFour().price), 1, (30, 50, 40)),
+    font_renderer.render("XP: {}, $: {}".format(BacteruimFive().XP, BacteruimFive().price), 1, (30, 50, 40)),
+]
+
 flaticons = {
     'time': pg.transform.scale(pg.image.load("./img/icon/hourglass.png"), (40, 40)),
     'money': pg.transform.scale(pg.image.load("./img/icon/coin.png"), (40, 40)),
@@ -64,7 +74,7 @@ flaticons = {
 }
 
 
-def render():
+def render(x, y, click):
 
     background.fill((163, 204, 181))
     screen.blit(background, background_rect)
@@ -83,23 +93,47 @@ def render():
         screen.blit(label, (790, 160))
         screen.blit(flaticons["score"], (770, 400))
         screen.blit(text[2], (823, 408))
+        startx, starty = 775, 210
+        for i in range(1, 6):
+            screen.blit(pg.transform.scale(baterials_icons[i], (30, 30)), (startx, starty, 0, 0))
+            screen.blit(names[i - 1], (startx + 40, starty))
+            starty += 30
+        if 765 <= x <= 960 and 210 <= y <= 240 and click:
+            buy(BacteriumOne)
+        elif 765 <= x <= 960 and 240 <= y <= 270 and click:
+            buy(BacteruimTwo)
+        elif 765 <= x <= 960 and 270 <= y <= 300 and click:
+            buy(BacteruimThree)
+        elif 765 <= x <= 960 and 300 <= y <= 330 and click:
+            buy(BacteruimFour)
+        elif 765 <= x <= 960 and 330 <= y <= 360 and click:
+            buy(BacteruimFive)
 
     screen.blit(icon_settings, (10, 7))
     pg.display.update()
     clock.tick(FPS)
 
+view = False
+click = False
 
 while running:
 
     for event in pg.event.get():
         if event.type == pg.QUIT:
             exit(0)
+        elif event.type == pg.MOUSEBUTTONUP:
+            click = True
 
     mousex, mousey = pg.mouse.get_pos()
     mouse_tap = pg.mouse.get_pressed()
-    if (930 <= mousex <= 960
+    if view and (765 <= mousex <= 960 and 150 <= mousey <= 465):
+        coord = (0, 0, 195, 315)
+    elif (930 <= mousex <= 960
             and 150 <= mousey <= 465):
-            coord = (0, 0, 195, 315)
+            view = True
+    else:
+        coord = (175, 0, 20, 315)
+        view = False
 
-    render()
-    coord = (175, 0, 20, 315)
+    render(mousex, mousey, click)
+    click = False
