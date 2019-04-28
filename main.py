@@ -1,5 +1,6 @@
 import pygame as pg
 from logic import Game
+from bacterium import BacteriumOne, BacteruimTwo, BacteruimThree, BacteruimFive, BacteruimFour, ImprovedBacterium
 
 successes, failures = pg.init()
 print("{0} successes and {1} failures".format(successes, failures))
@@ -8,6 +9,20 @@ new_mode = Game()
 time = "00:00"
 score = new_mode.score
 money = new_mode.money
+
+
+def buy(type):
+    new_mode.buy(type)
+
+
+baterials_icons = {
+    1: BacteriumOne().body,
+    2: BacteruimTwo().body,
+    3: BacteruimThree().body,
+    4: BacteruimFour().body,
+    5: BacteruimFive().body,
+    # 6: ImprovedBacterium().body
+}
 
 screen = pg.display.set_mode((960, 640), 0, 32)
 clock = pg.time.Clock()
@@ -68,6 +83,7 @@ def render():
         screen.blit(label, (790, 160))
         screen.blit(flaticons["score"], (770, 400))
         screen.blit(text[2], (823, 408))
+
     screen.blit(icon_settings, (10, 7))
     pg.display.update()
     clock.tick(FPS)
