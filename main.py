@@ -13,6 +13,7 @@ money = new_mode.money
 
 def buy(type):
     new_mode.buy(type)
+    print(0)
 
 
 baterials_icons = {
@@ -73,7 +74,7 @@ flaticons = {
 }
 
 
-def render(x, y):
+def render(x, y, click):
 
     background.fill((163, 204, 181))
     screen.blit(background, background_rect)
@@ -97,15 +98,15 @@ def render(x, y):
             screen.blit(pg.transform.scale(baterials_icons[i], (30, 30)), (startx, starty, 0, 0))
             screen.blit(names[i - 1], (startx + 40, starty))
             starty += 30
-        if 765 <= x <= 960 and 210 <= y <= 240:
+        if 765 <= x <= 960 and 210 <= y <= 240 and click:
             buy(BacteriumOne)
-        elif 765 <= x <= 960 and 240 <= y <= 270:
+        elif 765 <= x <= 960 and 240 <= y <= 270 and click:
             buy(BacteruimTwo)
-        elif 765 <= x <= 960 and 270 <= y <= 300:
+        elif 765 <= x <= 960 and 270 <= y <= 300 and click:
             buy(BacteruimThree)
-        elif 765 <= x <= 960 and 300 <= y <= 330:
+        elif 765 <= x <= 960 and 300 <= y <= 330 and click:
             buy(BacteruimFour)
-        elif 765 <= x <= 960 and 330 <= y <= 360:
+        elif 765 <= x <= 960 and 330 <= y <= 360 and click:
             buy(BacteruimFive)
 
     screen.blit(icon_settings, (10, 7))
@@ -113,12 +114,15 @@ def render(x, y):
     clock.tick(FPS)
 
 view = False
+click = False
 
 while running:
 
     for event in pg.event.get():
         if event.type == pg.QUIT:
             exit(0)
+        elif event.type == pg.MOUSEBUTTONUP:
+            click = True
 
     mousex, mousey = pg.mouse.get_pos()
     mouse_tap = pg.mouse.get_pressed()
@@ -131,5 +135,5 @@ while running:
         coord = (175, 0, 20, 315)
         view = False
 
-    render(mousex, mousey)
-    #
+    render(mousex, mousey, click)
+    click = False
