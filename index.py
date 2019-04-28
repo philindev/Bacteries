@@ -1,4 +1,4 @@
-from nt import startfile
+import start
 
-startfile("start.py")
+# os.startfile("start.py")
 
