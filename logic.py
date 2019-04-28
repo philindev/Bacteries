@@ -41,3 +41,4 @@ class Game:
             for wave in self.achieved_waves:
                 self.score += bact.score * wave.bonus
                 self.money += bact.cash * wave.bonus
+
